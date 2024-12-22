@@ -1,0 +1,75 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 23.05.1 ] */
+/* [wxMaxima: input   start ] */
+/* Definisikan variabel */
+kill(all);
+depends(x, t); depends(θ, t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Definisikan koordinat pendulum */
+x_pendulum: x + L*sin(θ); y_pendulum: L*cos(θ);
+vx_pendulum: diff(x_pendulum, t); vy_pendulum: diff(y_pendulum, t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Definisikan energi kinetik */
+T_pendulum: (1/2)*m_pendulum*(vx_pendulum^2 + vy_pendulum^2);
+T_cart: (1/2)*M_cart*(diff(x,t))^2;              
+T: T_pendulum + T_cart;                           
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Definisikan energi potensial */
+V: m_pendulum*g*y_pendulum; /* Energi potensial pendulum */
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Definisikan Lagrangian */
+Lagrangian: T - V; 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Hitung persamaan gerak menggunakan Lagrange (d adalah koefisien gaya gesek)*/
+lagrange_eqn1: ratsimp(diff(diff(Lagrangian, diff(x,t)), t) - diff(Lagrangian, x))  - d*diff(x, t)= F;
+lagrange_eqn2: ratsimp(diff(diff(Lagrangian, diff(θ,t)), t) - diff(Lagrangian, θ)) = 0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Buat persamaan sin dan cos untuk penyerdahanaan */
+/* Asumsikan nilai theta sangat kecil */
+simp_sin: sin(θ)=θ; simp_cos: cos(θ)=1; 
+simp_theta_1: θ^2 = 0; simp_theta_2: θ^3 = 0; simp_theta_3: diff(θ, t) = 0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Turunkna persamaan lagrange 1 terhadap x dan theta */
+derive_thetaddot_1: subst([simp_sin, simp_cos, simp_theta_1, simp_theta_2, simp_theta_3], solve(lagrange_eqn1, diff(θ, t, 2)));
+derive_xddot_1: subst([simp_sin, simp_cos, simp_theta_1, simp_theta_2, simp_theta_3], solve(lagrange_eqn1, diff(x, t, 2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Turunkna persamaan lagrange 2 terhadap x dan theta */
+derive_thetaddot_2: subst([simp_sin, simp_cos, simp_theta_1, simp_theta_2, simp_theta_3], solve(lagrange_eqn2, diff(θ, t, 2)));
+derive_xddot_2: subst([simp_sin, simp_cos, simp_theta_1, simp_theta_2, simp_theta_3], solve(lagrange_eqn2, diff(x, t, 2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Turunkan persaaman xddot dan thetaddot */
+thetaddot: solve(subst(derive_xddot_1, derive_thetaddot_2), diff(θ, t, 2));
+xddot: solve(subst(derive_thetaddot_2, derive_xddot_1), diff(x, t, 2));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 23.05.1"$
