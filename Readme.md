@@ -2,6 +2,8 @@
 
 This repository contains a Python implementation of an **Inverted Pendulum** system with Linear Quadratic Regulator (LQR) control. It also integrates an Artificial Bee Colony (ABC) optimization algorithm for fine-tuning the LQR parameters to achieve optimal system performance.
 
+Notebook Link : [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1l8WH71j43StW5f43IY9zYmzAwvvKT4El#scrollTo=tGgKr20MpEMk)
+
 ## Features
 - **Inverted Pendulum Simulation**: Simulates the dynamics of an inverted pendulum on a cart.
 - **LQR Control**: Provides state-space-based optimal control for the system.
@@ -30,8 +32,6 @@ Install the required Python packages using:
 
 Here is a structured README.md file for your repository:
 
-markdown
-Copy code
 # Inverted Pendulum Simulation and Optimization
 
 This repository contains a Python implementation of an **Inverted Pendulum** system with Linear Quadratic Regulator (LQR) control. It also integrates an Artificial Bee Colony (ABC) optimization algorithm for fine-tuning the LQR parameters to achieve optimal system performance.
